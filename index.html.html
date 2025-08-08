@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petsmarket Leave Application System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f6f8fa;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #2C3E50; /* Main dark blue tone */
+        padding: 15px;
+        text-align: center;
+        color: white;
+    }
+    header img {
+        height: 50px;
+        display: block;
+        margin: 0 auto 10px auto;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+        color: #2C3E50;
+        margin-top: 0;
+    }
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+    input, select, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+    textarea {
+        resize: vertical;
+        min-height: 60px;
+    }
+    button {
+        background-color: #2C3E50;
+        color: white;
+        font-weight: bold;
+        border: none;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #34495E;
+    }
+    .balance-box {
+        background: #ecf5ff;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-left: 4px solid #2C3E50;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="Logo.png" alt="Petsmarket Logo">
+    <h1>Petsmarket Leave Application</h1>
+</header>
+
+<!-- Login Section -->
+<div class="container" id="login-section">
+    <h2>Employee Login</h2>
+    <label>Email</label>
+    <input type="email" id="loginEmail" placeholder="Enter your company email">
+    <label>Password</label>
+    <input type="password" id="loginPassword" placeholder="Enter your password">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- Leave Form Section -->
+<div class="container hidden" id="leave-form-section">
+    <h2>Leave Application Form</h2>
+    <p>Please complete the form below to request leave. Requests will be sent to your Manager and HR.</p>
+
+    <div class="balance-box" id="leaveBalances">
+        Annual Leave: <span id="annualBalance">-</span> days | 
+        Sick Leave: <span id="sickBalance">-</span> days | 
+        Unpaid Leave: <span id="unpaidBalance">-</span> days
+    </div>
+
+    <label>Employee Name</label>
+    <input type="text" id="employeeName" readonly>
+
+    <label>Department</label>
+    <input type="text" id="department" readonly>
+
+    <label>Leave Request Duration</label>
+    <input type="text" id="leaveDuration" placeholder="Days / Hours">
+
+    <label>Dates of Absence</label>
+    <input type="date" id="startDate"> to 
+    <input type="date" id="endDate">
+
+    <label>Type of Leave</label>
+    <select id="leaveType">
+        <option>Vacation</option>
+        <option>Sick/Medical Leave</option>
+        <option>Short Leave</option>
+        <option>Bereavement</option>
+        <option>Leave without pay</option>
+        <option>Other</option>
+    </select>
+
+    <label>Reason for Leave</label>
+    <textarea id="reason"></textarea>
+
+    <button onclick="submitLeave()">Submit Request</button>
+</div>
+
+<script>
+// Placeholder user data for now
+const dummyUser = {
+    email: "test@petsmarket.com",
+    password: "1234",
+    name: "John Doe",
+    department: "IT",
+    annualLeave: 12,
+    sickLeave: 5,
+    unpaidLeave: 0
+};
+
+function login() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    if (email === dummyUser.email && password === dummyUser.password) {
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('leave-form-section').classList.remove('hidden');
+        document.getElementById('employeeName').value = dummyUser.name;
+        document.getElementById('department').value = dummyUser.department;
+        document.getElementById('annualBalance').innerText = dummyUser.annualLeave;
+        document.getElementById('sickBalance').innerText = dummyUser.sickLeave;
+        document.getElementById('unpaidBalance').innerText = dummyUser.unpaidLeave;
+    } else {
+        alert("Invalid login. Please check your email and password.");
+    }
+}
+
+function submitLeave() {
+    alert("Your leave request has been submitted successfully. HR will review it and get back to you.");
+    // Airtable + Email integration will go here later
+}
+</script>
+
+</body>
+</html>
